@@ -58,6 +58,8 @@ maxInterval=names(which(stepsPerInterval== max(stepsPerInterval)))
 
 ## Imputing missing values
 
+The methodology followed here is to impute NS values with the median value of steps in the concerned time interval. 
+
 
 ```r
 NA_count=nrow(data[is.na(data$steps),])
@@ -98,4 +100,24 @@ print(mean(stepsPerDay2))
 ## [1] 9503.869
 ```
 
+The median and mean of the imputed data is different from that of the original data. Both the median and mean have decreased.
+
+Total daily number of steps has gone up (from 570608 to 579736), since intervals that were being ignored earlier because of the NA value are now being included.
+
 ## Are there differences in activity patterns between weekdays and weekends?
+
+
+```r
+day = factor(c("Weekday", "Weekend"))
+  data3=cbind(data_NAreplaced, day)
+  data3[weekdays(data3[,2]) %in% c("Saturday", "Sunday"),4]="Weekend"
+  data3[weekdays(data3[,2]) %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"),4]="Weekday"
+  stepsPerIntervalWeekday=tapply(data3[data3[,4]=="Weekday",1], data3[data3[,4]=="Weekday",3], mean)
+  stepsPerIntervalWeekend=tapply(data3[data3[,4]=="Weekend",1], data3[data3[,4]=="Weekend",3], mean)
+  par(mfrow=c(2,1))
+  plot(names(stepsPerIntervalWeekday), stepsPerIntervalWeekday, type = "l", xlab="Interval", ylab="Number of Steps", main="weekday")
+  plot(names(stepsPerIntervalWeekend), stepsPerIntervalWeekend, type = "l", xlab="Interval", ylab="Number of Steps", main="weekend")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
+  
