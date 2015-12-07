@@ -38,7 +38,7 @@ print(mean(stepsPerDay))
 stepsPerInterval=tapply(data_noNA$steps, data_noNA$interval, mean)
 plot(names(stepsPerInterval), stepsPerInterval, type = "l", xlab="Interval", ylab="Number of Steps")  
 maxInterval=names(which(stepsPerInterval== max(stepsPerInterval)))
-
+print(maxInterval)
 ```
 
 ## Imputing missing values

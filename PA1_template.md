@@ -54,6 +54,11 @@ plot(names(stepsPerInterval), stepsPerInterval, type = "l", xlab="Interval", yla
 
 ```r
 maxInterval=names(which(stepsPerInterval== max(stepsPerInterval)))
+print(maxInterval)
+```
+
+```
+## [1] "835"
 ```
 
 ## Imputing missing values
